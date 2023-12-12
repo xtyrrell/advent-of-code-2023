@@ -1,6 +1,8 @@
 fun main() {
-    fun power(counts: Map<String, Int>): Int {return counts.values.reduce { acc, i -> i * acc }}
-    
+    fun power(counts: Map<String, Int>): Int {
+        return counts.values.reduce { acc, i -> i * acc }
+    }
+
     fun part1(input: List<String>): Int {
         val maxValid = mapOf(
                 "red" to 12,
@@ -33,14 +35,15 @@ fun main() {
             val colourCounts = Regex("""(\d+) (\w+)""").findAll(line)
 
             colourCounts
-                .fold(
-                    mapOf<String, Int>()
-                )
+                    .fold(
+                            mapOf<String, Int>()
+                    )
                     { accumulator, element ->
                         val (count, colour) = element.destructured
 
-                        accumulator +
-                            (colour.trim() to maxOf(accumulator.getOrDefault(colour.trim(), 0), count.toInt()))
+                        val maxCount = maxOf(accumulator.getOrDefault(colour.trim(), 0), count.toInt())
+
+                        accumulator + (colour.trim() to maxCount)
                     }
         }.map(::power)
 
